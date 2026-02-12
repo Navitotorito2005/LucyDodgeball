@@ -22,8 +22,8 @@ _G.c_ld_equipall = function() -- Equip Riled Lucy and Reed Tunic to all players.
 end
 
 _G.c_ld_maxhp = function(amount) -- Set all players HP to 150.
-    local hp = tonumber(amount) or 150
     Log("log", "Setting all players HP to " .. hp .. ".")
+    local hp = tonumber(amount) or 150
     for k, v in pairs(_G.AllNonSpectators) do
         if not v.components.health:IsDead() then
             v.components.health:SetMaxHealth(hp)
@@ -120,7 +120,7 @@ _G.c_ld_groundall = function(prefab) -- Freeze all entities of a certain prefab 
         Log("error", "Must specify a prefab.")
         return
     end
-    Log("log", "Freezing all \"" .. prefab .. "\" in place.")
+	  Log("log", "Freezing all \"" .. prefab .. "\" in place.")
     for k, v in pairs(_G.Ents) do
         if v.prefab == prefab then
             v.components.locomotor:SetExternalSpeedMultiplier(v, "c_ld_speedmult", 0)
@@ -150,14 +150,14 @@ _G.c_ld_color = function(player_name, color) -- Change the color of a player.
     for k, v in pairs(_G.AllNonSpectators) do
         if v.name == player_name then
             if color == "red" or color == 1 then
-                v.AnimState:SetAddColour(0.6, 0, 0, 1)
+                v.AnimState:SetAddColour(0.5, 0, 0.1, 1)
             elseif color == "blue" or color == 2 then
-                v.AnimState:SetAddColour(0.1, 0, 0.7, 1)
+                v.AnimState:SetAddColour(0.2, 0, 0.8, 1)
             elseif color == "yellow" or color == 3 then
-                v.AnimState:SetAddColour(0.2, 0.5, 0, 1)
+                v.AnimState:SetAddColour(0.3, 0.4, 0, 1)
             elseif color == "green" or color == 4 then
-                v.AnimState:SetAddColour(0, 0.6, 0.2, 1)
-            elseif color == nil or color == 0 then
+                v.AnimState:SetAddColour(0, 0.7, 0.1, 1)
+            elseif color == "default" or color == 0 then
                 v.AnimState:SetAddColour(0, 0, 0, 1)
             end
         end
@@ -185,18 +185,18 @@ _G.c_ld_teams = function(n) -- Divide players into n teams and color them accord
     end
     _G.shuffleArray(AllNonSpectatorsCopy)
     for i = 1, maxplayers/n do
-        AllNonSpectatorsCopy[i].AnimState:SetAddColour(0.6, 0, 0, 1)
+        AllNonSpectatorsCopy[i].AnimState:SetAddColour(0.5, 0, 0.1, 1)
     end
     for i = maxplayers/n + 1, maxplayers/n*2 do
-        AllNonSpectatorsCopy[i].AnimState:SetAddColour(0.1, 0, 0.7, 1)
+        AllNonSpectatorsCopy[i].AnimState:SetAddColour(0.2, 0, 0.8, 1)
     end
     if n < 3 then return end
     for i = maxplayers/n*2 + 1, maxplayers/n*3 do
-        AllNonSpectatorsCopy[i].AnimState:SetAddColour(0.2, 0.5, 0, 1)
+        AllNonSpectatorsCopy[i].AnimState:SetAddColour(0.3, 0.4, 0, 1)
     end
     if n < 4 then return end
     for i = maxplayers/n*3 + 1, maxplayers do
-        AllNonSpectatorsCopy[i].AnimState:SetAddColour(0, 0.6, 0.2, 1)
+        AllNonSpectatorsCopy[i].AnimState:SetAddColour(0, 0.7, 0.1, 1)
     end
 end
 
@@ -211,4 +211,5 @@ end
 
 function Log(type, message)
     print("[LD." .. string.upper(type) .. "] " .. message)
+
 end
